@@ -1,0 +1,24 @@
+﻿<Window x:Class="quan_ly_rung_wpf_2.test"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:quan_ly_rung_wpf_2"
+        mc:Ignorable="d"
+        Title="test"
+        Height="450"
+        Width="800">
+    <StackPanel>
+        <ContentControl x:Name="content1"
+                        Width="800"
+                        Height="300">
+
+        </ContentControl>
+        <Border x:Name="btn1"
+                Background="Aqua"
+                Height="100"
+                MouseLeftButtonDown="btn1_Click">
+            <TextBlock>btn1</TextBlock>
+        </Border>
+    </StackPanel>
+</Window>

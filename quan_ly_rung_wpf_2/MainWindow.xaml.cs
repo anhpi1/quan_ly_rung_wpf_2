@@ -29,7 +29,8 @@ namespace quan_ly_rung_wpf_2
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            test test1 = new test();    
+            test1.Show();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
