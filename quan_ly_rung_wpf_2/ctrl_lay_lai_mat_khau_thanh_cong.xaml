@@ -1,0 +1,94 @@
+﻿<UserControl x:Class="quan_ly_rung_wpf_2.ctrl_lay_lai_mat_khau_thanh_cong"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:quan_ly_rung_wpf_2"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Border CornerRadius="20"
+                Grid.Row="1"
+                Grid.RowSpan="9"
+                Grid.Column="3"
+                Grid.ColumnSpan="4"
+                Background="#E8E8E8"
+                Style="{StaticResource hieu_ung_bong_trang}">
+        </Border>
+        <Border CornerRadius="20"
+                Grid.Row="1"
+                Grid.RowSpan="9"
+                Grid.Column="3"
+                Grid.ColumnSpan="4"
+                Background="#E8E8E8"
+                Style="{StaticResource hieu_ung_bong_den}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+
+
+
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="0"
+                           Grid.RowSpan="2"
+                           Grid.Column="1"
+                           Grid.ColumnSpan="6"
+                           Text="Lấy lại mật khẩu thành công"
+                           FontSize="30"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"></TextBlock>
+                <Image Source="png/check.png"
+                       Grid.Row="2"
+                       Grid.Column="2"
+                       Grid.RowSpan="4"
+                       Grid.ColumnSpan="4" />
+                <Border CornerRadius="20"
+                        x:Name="button1_trang"
+                        Grid.Row="7"
+                        Grid.RowSpan="1"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="6"
+                        Background="#E8E8E8"
+                        Style="{StaticResource hieu_ung_bong_trang}"
+                        MouseLeave="Border_MouseLeave"
+                        MouseEnter="Border_MouseEnter">
+                </Border>
+                <Border CornerRadius="20"
+                        x:Name="button1"
+                        Grid.Row="7"
+                        Grid.RowSpan="1"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="6"
+                        Background="#E8E8E8"
+                        Style="{StaticResource hieu_ung_bong_den}"
+                        MouseEnter="Border_MouseEnter"
+                        MouseLeave="Border_MouseLeave"
+                        MouseLeftButtonDown="LoginButton_Click">
+                    <TextBlock Text="Đăng nhập"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontSize="24"></TextBlock>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

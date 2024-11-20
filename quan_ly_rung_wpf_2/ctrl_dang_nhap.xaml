@@ -1,0 +1,175 @@
+﻿<UserControl x:Class="quan_ly_rung_wpf_2.ctrl_dang_nhap"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:quan_ly_rung_wpf_2"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Border CornerRadius="20"
+                Grid.Row="1"
+                Grid.RowSpan="5"
+                Grid.Column="3"
+                Grid.ColumnSpan="4"
+                Background="#E8E8E8"
+                Style="{StaticResource hieu_ung_bong_trang}">
+        </Border>
+        <Border CornerRadius="20"
+                Grid.Row="1"
+                Grid.RowSpan="5"
+                Grid.Column="3"
+                Grid.ColumnSpan="4"
+                Background="#E8E8E8"
+                Style="{StaticResource hieu_ung_bong_den}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition Height="30" />
+                    <RowDefinition />
+                    <RowDefinition Height="30" />
+                    <RowDefinition />
+                    <RowDefinition Height="30" />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0"
+                           Grid.RowSpan="2"
+                           Grid.Column="1"
+                           Grid.ColumnSpan="6"
+                           Text="Chào mừng"
+                           FontSize="30"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"></TextBlock>
+                <TextBlock Grid.Row="2"
+                           Grid.RowSpan="1"
+                           Grid.Column="1"
+                           Grid.ColumnSpan="6"
+                           Text="Tên đăng nhập:"
+                           Margin="5 0 0 0"
+                           FontSize="16"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"></TextBlock>
+                <Border Background="#E8E8E8"
+                        BorderBrush="#b4b4b4"
+                        BorderThickness="1"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Grid.RowSpan="1"
+                        Grid.ColumnSpan="6"
+                        CornerRadius="10">
+
+                    <TextBox Margin="5"
+                             x:Name="used_name"
+                             FontSize="20"
+                             Background="Transparent"
+                             BorderBrush="Transparent"
+                             BorderThickness="0"
+                             TextAlignment="Left"
+                             VerticalContentAlignment="Center" />
+                </Border>
+                <TextBlock Grid.Row="4"
+                           Grid.RowSpan="1"
+                           Grid.Column="1"
+                           Grid.ColumnSpan="6"
+                           Text="Mật khẩu:"
+                           Margin="5 0 0 0"
+                           FontSize="16"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"></TextBlock>
+                <Border Background="#E8E8E8"
+                        BorderBrush="#b4b4b4"
+                        BorderThickness="1"
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        Grid.RowSpan="1"
+                        Grid.ColumnSpan="6"
+                        CornerRadius="10">
+
+                    <PasswordBox x:Name="pass"
+                                 FontSize="20"
+                                 Margin="5"
+                                 Background="Transparent"
+                                 BorderBrush="Transparent"
+                                 BorderThickness="0"
+                                 HorizontalContentAlignment="Left"
+                                 VerticalContentAlignment="Center" />
+                </Border>
+                <Grid Grid.Row="6"
+                      Grid.RowSpan="1"
+                      Grid.Column="1"
+                      Grid.ColumnSpan="6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0"
+                               x:Name="chua_co_tai_khoan"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               Grid.RowSpan="1"
+                               Grid.Column="1"
+                               Grid.ColumnSpan="1"
+                               Text="Chưa có tài khoản?"
+                               FontSize="16"
+                               MouseLeftButtonDown="Chua_co_tai_khoan"
+                               MouseEnter="Chua_co_tai_khoan_enter"
+                               MouseLeave="Chua_co_tai_khoan_leave"></TextBlock>
+                    <TextBlock Grid.Row="0"
+                               x:Name="quen_mat_khau"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               Grid.RowSpan="1"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="1"
+                               Text="Quên mật khẩu?"
+                               FontSize="16"
+                               MouseLeftButtonDown="Quen_mat_khau"
+                               MouseEnter="Quen_mat_khau_enter"
+                               MouseLeave="Quen_mat_khau_leave"></TextBlock>
+                </Grid>
+                <Border CornerRadius="20"
+                        x:Name="button1_trang"
+                        Grid.Row="8"
+                        Grid.RowSpan="1"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="6"
+                        Background="#E8E8E8"
+                        Style="{StaticResource hieu_ung_bong_trang}"
+                        MouseLeave="Border_MouseLeave"
+                        MouseEnter="Border_MouseEnter">
+                </Border>
+                <Border CornerRadius="10"
+                        x:Name="button1"
+                        Grid.Row="8"
+                        Grid.RowSpan="1"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="6"
+                        Background="#E8E8E8"
+                        Style="{StaticResource hieu_ung_bong_den}"
+                        MouseEnter="Border_MouseEnter"
+                        MouseLeave="Border_MouseLeave"
+                        MouseLeftButtonDown="LoginButton_Click">
+                    <TextBlock Text="Đăng nhập"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontSize="24"></TextBlock>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
