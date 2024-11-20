@@ -614,7 +614,7 @@
                             <StackPanel>
                                 <Border x:Name="thong_tin_trang"
                                         Margin="10"
-                                        Background="White"
+                                        Background="#E8E8E8"
                                         Style="{StaticResource hieu_ung_bong_trang}"
                                         CornerRadius="25"
                                         Height="50"
@@ -623,7 +623,7 @@
                                         VerticalAlignment="Center"
                                         Grid.Column="1">
                                     <Border x:Name="thong_tin_den"
-                                            Background="White"
+                                            Background="#E8E8E8"
                                             Style="{StaticResource hieu_ung_bong_den}"
                                             CornerRadius="25"
                                             Height="50"
@@ -643,7 +643,7 @@
                                 </Border>
                                 <Border x:Name="dang_xuat_trang"
                                         Margin="10"
-                                        Background="White"
+                                        Background="#E8E8E8"
                                         Style="{StaticResource hieu_ung_bong_trang}"
                                         CornerRadius="25"
                                         Height="50"
@@ -652,7 +652,7 @@
                                         VerticalAlignment="Center"
                                         Grid.Column="1">
                                     <Border x:Name="dang_xuat_den"
-                                            Background="White"
+                                            Background="#E8E8E8"
                                             Style="{StaticResource hieu_ung_bong_den}"
                                             CornerRadius="25"
                                             Height="50"

@@ -896,7 +896,9 @@ namespace quan_ly_rung_wpf_2
 
         private void dang_xuat_down(object sender, MouseButtonEventArgs e)
         {
-
+            man_hinh_dang_nhap mywin = new man_hinh_dang_nhap();
+            mywin.Show();
+            this.Close();
 
             
 
