@@ -780,10 +780,12 @@ namespace quan_ly_rung_wpf_2
             if (btn_nguoi_dung)
             {
                 btn_nguoi_dung = false;
+                menu_nguoi_dung_trang.Visibility = Visibility.Collapsed;
             }
             else
             {
                 btn_nguoi_dung = true;
+                menu_nguoi_dung_trang.Visibility = Visibility.Visible;
             }
 
 
@@ -849,6 +851,54 @@ namespace quan_ly_rung_wpf_2
             }
 
 
+
+        }
+        private void thong_tin_enter(object sender, MouseEventArgs e)
+        {
+            enter("thong_tin_den", "thong_tin_trang");
+            
+        }
+
+        private void thong_tin_leave(object sender, MouseEventArgs e)
+        {
+            if (true)
+            {
+                leave("thong_tin_den", "thong_tin_trang");
+                
+            }
+            
+
+        }
+
+        private void thong_tin_down(object sender, MouseButtonEventArgs e)
+        {
+
+
+            
+
+        }
+        private void dang_xuat_enter(object sender, MouseEventArgs e)
+        {
+            enter("dang_xuat_den", "dang_xuat_trang");
+            
+        }
+
+        private void dang_xuat_leave(object sender, MouseEventArgs e)
+        {
+            if (true)
+            {
+                leave("dang_xuat_den", "dang_xuat_trang");
+                
+            }
+            
+
+        }
+
+        private void dang_xuat_down(object sender, MouseButtonEventArgs e)
+        {
+
+
+            
 
         }
 

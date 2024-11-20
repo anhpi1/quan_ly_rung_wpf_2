@@ -591,29 +591,86 @@
 
                     </Border>
                     <Border x:Name="menu_nguoi_dung_trang"
+                            Visibility="Collapsed"
                             Margin="0 70 20 0"
-                            Background="White"
+                            Height="150"
+                            Width="140"
+                            Background="#E8E8E8"
                             Style="{StaticResource hieu_ung_bong_trang}"
                             CornerRadius="25"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Top"
                             Grid.Column="1">
                         <Border x:Name="menu_nguoi_dung_den"
-                                Background="White"
+                                Height="150"
+                                Width="140"
+                                Background="#E8E8E8"
                                 Style="{StaticResource hieu_ung_bong_den}"
                                 CornerRadius="25"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Grid.Column="1">
 
-                            <ListBox x:Name="list_nguoi_dung"
-                                     BorderBrush="Transparent"
-                                     Background="Transparent"
-                                     Margin="10"
-                                     Width="485"
-                                     Visibility="Collapsed"
-                                     SelectionChanged="SuggestionList_SelectionChanged">
-                            </ListBox>
+                            <StackPanel>
+                                <Border x:Name="thong_tin_trang"
+                                        Margin="10"
+                                        Background="White"
+                                        Style="{StaticResource hieu_ung_bong_trang}"
+                                        CornerRadius="25"
+                                        Height="50"
+                                        Width="120"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Grid.Column="1">
+                                    <Border x:Name="thong_tin_den"
+                                            Background="White"
+                                            Style="{StaticResource hieu_ung_bong_den}"
+                                            CornerRadius="25"
+                                            Height="50"
+                                            Width="120"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Grid.Column="1"
+                                            MouseEnter="thong_tin_enter"
+                                            MouseLeave="thong_tin_leave"
+                                            MouseLeftButtonDown="thong_tin_down">
+                                        <TextBlock Text="Thông tin"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="20"></TextBlock>
+                                    </Border>
+
+                                </Border>
+                                <Border x:Name="dang_xuat_trang"
+                                        Margin="10"
+                                        Background="White"
+                                        Style="{StaticResource hieu_ung_bong_trang}"
+                                        CornerRadius="25"
+                                        Height="50"
+                                        Width="120"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Grid.Column="1">
+                                    <Border x:Name="dang_xuat_den"
+                                            Background="White"
+                                            Style="{StaticResource hieu_ung_bong_den}"
+                                            CornerRadius="25"
+                                            Height="50"
+                                            Width="120"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Grid.Column="1"
+                                            MouseEnter="dang_xuat_enter"
+                                            MouseLeave="dang_xuat_leave"
+                                            MouseLeftButtonDown="dang_xuat_down">
+                                        <TextBlock Text="Đăng xuất"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="20"></TextBlock>
+                                    </Border>
+
+                                </Border>
+                            </StackPanel>
                         </Border>
 
                     </Border>
