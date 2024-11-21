@@ -341,7 +341,7 @@ namespace quan_ly_rung_wpf_2
 
         private bool UpdateUserPassword(string username, string newPassword)
         {
-            string connectionString = "server=localhost;user=root;database=quan_li_rung;password=123456;";
+            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["MySqlConnection"].ConnectionString;
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
@@ -407,7 +407,7 @@ namespace quan_ly_rung_wpf_2
         // Hàm kiểm tra người dùng đã tồn tại
         private bool IsNoExistsUsername(string username)
         {
-            string connectionString = "server=localhost;user=root;database=quan_li_rung;password=123456;";
+            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["MySqlConnection"].ConnectionString;
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 try
@@ -431,7 +431,7 @@ namespace quan_ly_rung_wpf_2
         }
         private bool IsUserExistsPhone(string phone, string username)
         {
-            string connectionString = "server=localhost;user=root;database=quan_li_rung;password=123456;";
+            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["MySqlConnection"].ConnectionString;
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 try

@@ -361,7 +361,7 @@ namespace quan_ly_rung_wpf_2
         // Hàm kiểm tra người dùng đã tồn tại
         private bool IsUserExistsUsername(string username)
         {
-            string connectionString = "server=localhost;user=root;database=quan_li_rung;password=123456;";
+            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["MySqlConnection"].ConnectionString;
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 try
@@ -385,7 +385,7 @@ namespace quan_ly_rung_wpf_2
         }
         private bool IsUserExistsPhone(string phone)
         {
-            string connectionString = "server=localhost;user=root;database=quan_li_rung;password=123456;";
+            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["MySqlConnection"].ConnectionString;
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 try

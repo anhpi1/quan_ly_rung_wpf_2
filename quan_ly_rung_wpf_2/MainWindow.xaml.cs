@@ -35,7 +35,7 @@ namespace quan_ly_rung_wpf_2
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            man_hinh_menu main = new man_hinh_menu();
+            man_hinh_menu main = new man_hinh_menu("");
             main.Show();
         }
     }

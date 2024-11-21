@@ -159,7 +159,7 @@ namespace quan_ly_rung_wpf_2
             string password = pass.Password;
 
             // Chuỗi kết nối đến cơ sở dữ liệu MySQL
-            string connectionString = "Server=localhost;Database=quan_li_rung;Uid=root;Pwd=123456;";
+            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["MySqlConnection"].ConnectionString;
 
             try
             {
@@ -180,11 +180,30 @@ namespace quan_ly_rung_wpf_2
 
                         if (result > 0)
                         {
-                            man_hinh_menu screen = new man_hinh_menu();
+                            // Lấy user_id từ cơ sở dữ liệu
+                            string userIdQuery = "SELECT id FROM auth_user WHERE username = @username";
+                            using (MySqlCommand userIdCommand = new MySqlCommand(userIdQuery, connection))
+                            {
+                                userIdCommand.Parameters.AddWithValue("@username", username);
+                                int userId = Convert.ToInt32(userIdCommand.ExecuteScalar());
+
+                                // Chèn bản ghi vào bảng lịch sử truy cập
+                                string insertHistoryQuery = "INSERT INTO lich_su_truy_cap (user_id, action, ip_address) VALUES (@user_id, @action, @ip_address)";
+                                using (MySqlCommand insertHistoryCommand = new MySqlCommand(insertHistoryQuery, connection))
+                                {
+                                    insertHistoryCommand.Parameters.AddWithValue("@user_id", userId);
+                                    insertHistoryCommand.Parameters.AddWithValue("@action", "login");
+                                    insertHistoryCommand.Parameters.AddWithValue("@ip_address", GetIpAddress());  // Lấy địa chỉ IP của người dùng
+
+                                    insertHistoryCommand.ExecuteNonQuery(); // Thực thi câu lệnh chèn
+                                }
+                            }
+
+                            // Tiến hành mở màn hình menu sau khi đăng nhập thành công
+                            man_hinh_menu screen = new man_hinh_menu(username);
+                            MessageBox.Show(username);
                             screen.Show();
-                            newscreen.Close();
-                            // Hiển thị cửa sổ khác hoặc thực hiện hành động khác
-                            // Ví dụ: mở cửa sổ chính
+                            newscreen.Close();  // Đóng cửa sổ đăng nhập
                         }
                         else
                         {
@@ -197,6 +216,22 @@ namespace quan_ly_rung_wpf_2
             {
                 MessageBox.Show("Lỗi khi kết nối cơ sở dữ liệu: " + ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private string GetIpAddress()
+        {
+            // Lấy địa chỉ IP của máy tính người dùng
+            string ipAddress = string.Empty;
+            try
+            {
+                ipAddress = System.Net.Dns.GetHostAddresses(System.Net.Dns.GetHostName())
+                    .FirstOrDefault(ip => ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)?.ToString();
+            }
+            catch
+            {
+                ipAddress = "Không xác định";
+            }
+            return ipAddress;
         }
 
         private void Chua_co_tai_khoan(object sender, MouseButtonEventArgs e)

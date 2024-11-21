@@ -247,7 +247,7 @@ namespace quan_ly_rung_wpf_2
         // Hàm lưu người dùng vào cơ sở dữ liệu
         private bool SaveUserToDatabase(string last_name, string first_name, string address, string email, string username, string phone, string password)
         {
-            string connectionString = "server=localhost;user=root;database=quan_li_rung;password=123456;";
+            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["MySqlConnection"].ConnectionString;
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
