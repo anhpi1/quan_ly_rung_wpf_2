@@ -159,7 +159,7 @@ namespace quan_ly_rung_wpf_2
             string password = pass.Password;
 
             // Chuỗi kết nối đến cơ sở dữ liệu MySQL
-            string connectionString = "Server=localhost;Database=quan_li_rung;Uid=root;Pwd=123456;";
+            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["MySqlConnection"].ConnectionString;
 
             try
             {
@@ -181,6 +181,7 @@ namespace quan_ly_rung_wpf_2
                         if (result > 0)
                         {
                             man_hinh_menu screen = new man_hinh_menu();
+                            screen.Name = username;
                             screen.Show();
                             newscreen.Close();
                             // Hiển thị cửa sổ khác hoặc thực hiện hành động khác

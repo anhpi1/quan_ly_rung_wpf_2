@@ -24,7 +24,9 @@ namespace quan_ly_rung_wpf_2
         public man_hinh_menu()
         {
             InitializeComponent();
+
         }
+        public string username { get; set; }
         private bool home = false;
         private bool hanh_chinh = false;
         private bool hat_cay = false;
