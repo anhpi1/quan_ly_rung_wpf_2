@@ -7,6 +7,91 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <DataGrid x:Name="dataGrid" AutoGenerateColumns="False" Margin="0,0,0,132"
+              IsReadOnly="True"
+              RowDetailsVisibilityMode="Collapsed"
+		  LoadingRow="dataGrid_LoadingRow">
+            <DataGrid.Columns>
+                <!-- Các cột dữ liệu -->
+                <DataGridTemplateColumn Header="STT" Width="40">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}, Path=Header}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Tên sản phẩm" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding username}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Chi tiết" Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Chi tiết" Click="ChiTiet_Click" Tag="{Binding}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Xóa" Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Xóa" Click="Xoa_Click" Tag="{Binding id}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="10">
+                        <TextBlock Text="Chi tiet: " FontWeight="Bold" />
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                            <TextBlock Text="Id: " FontWeight="Bold" />
+                            <TextBlock Text="{Binding id}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                            <TextBlock Text="Phone: " FontWeight="Bold" />
+                            <TextBlock Text="{Binding phone}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                            <TextBlock Text="Password: " FontWeight="Bold" />
+                            <TextBlock Text="{Binding password}" />
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+        </DataGrid>
+
+        <!-- Grid nhập thông tin -->
+        <Grid x:Name="inputGrid" Visibility="Collapsed" Background="LightGray" Margin="100" Opacity="0.95">
+
+            <Button Content="X" Width="25" Height="25" Background="Red" Foreground="White"
+        FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Top"
+        Margin="5" Click="CloseInputGrid_Click" />
+            <StackPanel Margin="20">
+                <TextBlock Text="Thêm Sản Phẩm" FontWeight="Bold" FontSize="16" Margin="0,0,0,10" />
+                <StackPanel Orientation="Horizontal" Margin="0,10">
+                    <TextBlock Text="name: " Width="100" VerticalAlignment="Center" />
+                    <TextBox x:Name="txtName" Width="200" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,10">
+                    <TextBlock Text="Phone: " Width="100" VerticalAlignment="Center" />
+                    <TextBox x:Name="txtCategory" Width="200" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,10">
+                    <TextBlock Text="Password: " Width="100" VerticalAlignment="Center" />
+                    <TextBox x:Name="txtPrice" Width="200" />
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <!-- Nút Add/Submit -->
+        <Button x:Name="btnAddSubmit" Content="Add" HorizontalAlignment="Center" Margin="0,323,0,0" VerticalAlignment="Top" Height="44" Width="112" Click="btnAddSubmit_Click" RenderTransformOrigin="0.5,-0.414"/>
     </Grid>
 </UserControl>
