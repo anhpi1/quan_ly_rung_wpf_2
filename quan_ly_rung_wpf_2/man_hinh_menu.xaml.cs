@@ -732,35 +732,7 @@ namespace quan_ly_rung_wpf_2
             doi_anh("ban_do_png", "png/ban_do_1.png");
             doi_anh("he_thong_png", "png/he_thong_3.png");
         }
-        private void btn_seach_enter(object sender, MouseEventArgs e)
-        {
-            enter("btn_seach_den", "btn_seach_trang");
-            doi_anh("btn_seach_png", "png/seach_2.png");
-        }
-
-        private void btn_seach_leave(object sender, MouseEventArgs e)
-        {
-            if (true)
-            {
-                leave("btn_seach_den", "btn_seach_trang");
-                doi_anh("btn_seach_png", "png/seach_1.png");
-            }
-            else
-            {
-                leave("btn_seach_den", "btn_seach_trang");
-                doi_anh("btn_seach_png", "png/seach_1.png");
-            }
-
-        }
-
-        private void btn_seach_down(object sender, MouseButtonEventArgs e)
-        {
-
-
-            doi_anh("btn_seach_png", "png/seach_3.png");
-            doi_anh("btn_seach_dung_png", "png/seach_3.png");
-
-        }
+       
         private void btn_nguoi_dung_enter(object sender, MouseEventArgs e)
         {
             enter("btn_nguoi_dung_den", "btn_nguoi_dung_trang");
@@ -915,6 +887,36 @@ namespace quan_ly_rung_wpf_2
 
         //////////// seach box
         private readonly List<string> items = new List<string> { "con ca", "con cho", "con meo" };
+
+        private void btn_seach_enter(object sender, MouseEventArgs e)
+        {
+            enter("btn_seach_den", "btn_seach_trang");
+            doi_anh("btn_seach_png", "png/seach_2.png");
+        }
+
+        private void btn_seach_leave(object sender, MouseEventArgs e)
+        {
+            if (true)
+            {
+                leave("btn_seach_den", "btn_seach_trang");
+                doi_anh("btn_seach_png", "png/seach_1.png");
+            }
+            else
+            {
+                leave("btn_seach_den", "btn_seach_trang");
+                doi_anh("btn_seach_png", "png/seach_1.png");
+            }
+
+        }
+
+        private void btn_seach_down(object sender, MouseButtonEventArgs e)
+        {
+
+
+            doi_anh("btn_seach_png", "png/seach_3.png");
+            doi_anh("btn_seach_dung_png", "png/seach_3.png");
+
+        }
         private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             string input = SearchBox.Text.ToLower();

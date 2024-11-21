@@ -254,10 +254,11 @@ namespace quan_ly_rung_wpf_2
                 try
                 {
                     conn.Open();
-                    string query = @"
-                    INSERT INTO auth_user (first_name, last_name, address, email, username, phone, password, is_superuser, is_staff, date_joined, last_login, is_active)
-                    VALUES (@first_name, @last_name, @address, @email, @username, @phone, @password, 0, 0, NOW(), NULL, 1)";
 
+                    // Bước 1: Lưu thông tin người dùng mới vào bảng auth_user
+                    string query = @"
+            INSERT INTO auth_user (first_name, last_name, address, email, username, phone, password, is_superuser, is_staff, date_joined, is_active)
+            VALUES (@first_name, @last_name, @address, @email, @username, @phone, @password, 0, 0, NOW(), 1)";
 
                     using (MySqlCommand cmd = new MySqlCommand(query, conn))
                     {
@@ -270,13 +271,33 @@ namespace quan_ly_rung_wpf_2
                         cmd.Parameters.AddWithValue("@phone", phone);
                         cmd.Parameters.AddWithValue("@password", password);
 
-                        // Thực thi lệnh
+                        // Thực thi lệnh để chèn người dùng vào cơ sở dữ liệu
                         cmd.ExecuteNonQuery();
-                        return true;
                     }
 
-                }
+                    // Bước 2: Lấy user_id của người dùng vừa được thêm vào bảng auth_user
+                    string userIdQuery = "SELECT id FROM auth_user WHERE username = @username";
+                    int userId;
+                    using (MySqlCommand cmd = new MySqlCommand(userIdQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@username", username);
+                        userId = Convert.ToInt32(cmd.ExecuteScalar());  // Lấy id của người dùng vừa đăng ký
+                    }
 
+                    // Bước 3: Lưu lịch sử đăng ký vào bảng lich_su_truy_cap
+                    string insertHistoryQuery = "INSERT INTO lich_su_truy_cap (user_id, action, ip_address) VALUES (@user_id, @action, @ip_address)";
+                    using (MySqlCommand cmd = new MySqlCommand(insertHistoryQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@user_id", userId);
+                        cmd.Parameters.AddWithValue("@action", "register");  // Lưu lại hành động đăng ký
+                        cmd.Parameters.AddWithValue("@ip_address", GetIpAddress());  // Lấy địa chỉ IP của người dùng
+
+                        // Thực thi câu lệnh chèn lịch sử
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    return true;
+                }
                 catch (Exception ex)
                 {
                     // Tùy chọn ghi log lỗi
@@ -285,6 +306,23 @@ namespace quan_ly_rung_wpf_2
                 }
             }
         }
+
+        private string GetIpAddress()
+        {
+            // Lấy địa chỉ IP của máy tính người dùng
+            string ipAddress = string.Empty;
+            try
+            {
+                ipAddress = System.Net.Dns.GetHostAddresses(System.Net.Dns.GetHostName())
+                    .FirstOrDefault(ip => ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)?.ToString();
+            }
+            catch
+            {
+                ipAddress = "Không xác định";
+            }
+            return ipAddress;
+        }
+
         private void ShowErrorMessage(string errorMessage)
         {
             // Tạo một cửa sổ mới để hiển thị lỗi

@@ -38,5 +38,11 @@ namespace quan_ly_rung_wpf_2
             man_hinh_menu main = new man_hinh_menu("");
             main.Show();
         }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            var main = new ctrl_quan_li_lich_su_nguoi_dung();
+            noi_dung.Content = main;
+        }
     }
 }
