@@ -13,5 +13,8 @@
                 Click="Button_Click" />
         <Button Content="Mở cửa sổ menu"
                 Click="Button_Click_1" />
+        <Button Content="Mở cửa sổ lịch sử truy cập"
+                Click="Button_Click_2" />
+        <ContentControl x:Name="noi_dung"></ContentControl>
     </StackPanel>
 </Window>
