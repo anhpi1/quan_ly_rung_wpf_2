@@ -30,6 +30,7 @@ namespace quan_ly_rung_wpf_2
 
         private string connectionString = "Server=localhost;Database=quan_li_rung;Uid=root;Pwd=123456;";
         private bool isAdding;
+        internal ContentControl myctrl;
 
         private void LoadData()
         {
@@ -87,7 +88,7 @@ namespace quan_ly_rung_wpf_2
                     using (MySqlConnection conn = new MySqlConnection(connectionString))
                     {
                         conn.Open();
-                        string query = "DELETE FROM users WHERE id = @id";
+                        string query = "DELETE FROM animal_species WHERE id = @id";
                         MySqlCommand cmd = new MySqlCommand(query, conn);
                         cmd.Parameters.AddWithValue("@id", id);
                         cmd.ExecuteNonQuery();
@@ -111,10 +112,12 @@ namespace quan_ly_rung_wpf_2
             {
                 // Xử lý khi nhấn nút Submit
                 string name = txtName.Text;
-                string category = txtCategory.Text;
-                string price = txtPrice.Text;
+                string food = txtFood.Text;
+                string disease = txtDisease.Text;
+                string quantity = txtQuantity.Text;
+                string discription = txtDiscription.Text;
 
-                if (!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(category) && !string.IsNullOrWhiteSpace(price))
+                if (!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(food) && !string.IsNullOrWhiteSpace(disease)&& !string.IsNullOrWhiteSpace(quantity)&& !string.IsNullOrWhiteSpace(discription))
                 {
                     try
                     {
@@ -124,12 +127,14 @@ namespace quan_ly_rung_wpf_2
                             connection.Open();
 
                             // Câu lệnh SQL để chèn dữ liệu
-                            string sql = "INSERT INTO users (username, phone, password) VALUES (@name, @category, @price)";
+                            string sql = "INSERT INTO animal_species (name, main_food, main_disease, longevity, description) VALUES (@name, @food, @disease, @quantity, @discription)";
                             using (MySqlCommand cmd = new MySqlCommand(sql, connection))
                             {
                                 cmd.Parameters.AddWithValue("@name", name);
-                                cmd.Parameters.AddWithValue("@category", category);
-                                cmd.Parameters.AddWithValue("@price", price);
+                                cmd.Parameters.AddWithValue("@food", food);
+                                cmd.Parameters.AddWithValue("@disease", disease);
+                                cmd.Parameters.AddWithValue("@quantity", quantity);
+                                cmd.Parameters.AddWithValue("@discription", discription);
 
                                 // Thực thi câu lệnh
                                 cmd.ExecuteNonQuery();
@@ -143,8 +148,11 @@ namespace quan_ly_rung_wpf_2
                         {
                             id = dataGrid.Items.Count + 1, // STT tự động tăng
                             name,
-                            category,
-                            price
+                            food,
+                            disease,
+                            quantity,
+                            discription,
+                            
                         };
                         var itemsSource = dataGrid.ItemsSource as System.Collections.IList;
                         itemsSource?.Add(newItem);
@@ -156,8 +164,11 @@ namespace quan_ly_rung_wpf_2
 
                         // Xóa các giá trị nhập liệu
                         txtName.Clear();
-                        txtCategory.Clear();
-                        txtPrice.Clear();
+                        txtFood.Clear();
+                        txtQuantity.Clear();
+                        txtDiscription.Clear();
+                        txtDisease.Clear();
+
                     }
                     catch (Exception ex)
                     {
@@ -190,9 +201,12 @@ namespace quan_ly_rung_wpf_2
             isAdding = false;
 
             // Xóa dữ liệu nhập liệu nếu có
+    
             txtName.Clear();
-            txtCategory.Clear();
-            txtPrice.Clear();
+            txtFood.Clear();
+            txtQuantity.Clear();
+            txtDiscription.Clear();
+            txtDisease.Clear();
         }
 
         private void dataGrid_LoadingRow(object sender, DataGridRowEventArgs e)

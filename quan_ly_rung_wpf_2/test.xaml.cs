@@ -36,7 +36,7 @@ namespace quan_ly_rung_wpf_2
 
         private void bt1_Click(object sender, RoutedEventArgs e)
         {
-            var myctrl = new ctrl_test();
+            var myctrl = new ctrl_dong_vat();
             myctrl.myctrl = content1;
             content1.Content = myctrl;
         }
