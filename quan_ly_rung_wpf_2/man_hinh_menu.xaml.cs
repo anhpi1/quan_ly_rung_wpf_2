@@ -21,12 +21,17 @@ namespace quan_ly_rung_wpf_2
     /// </summary>
     public partial class man_hinh_menu : Window
     {
-        public man_hinh_menu()
+        public string username1;
+        public man_hinh_menu( string username)
         {
             InitializeComponent();
+            MessageBox.Show(username);
+            username1=username;
+            MessageBox.Show(username1);
 
         }
-        public string username { get; set; }
+        
+        
         private bool home = false;
         private bool hanh_chinh = false;
         private bool hat_cay = false;
@@ -874,7 +879,9 @@ namespace quan_ly_rung_wpf_2
 
         private void thong_tin_down(object sender, MouseButtonEventArgs e)
         {
-
+            var myctrl = new ctrl_thong_tin(username1);
+            
+            noi_dung.Content= myctrl;   
 
             
 
