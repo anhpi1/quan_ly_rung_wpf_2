@@ -27,7 +27,14 @@ namespace quan_ly_rung_wpf_2
 
         
 
-        private void btn1_Click(object sender, MouseButtonEventArgs e)
+        //private void btn1_Click(object sender, MouseButtonEventArgs e)
+        //{
+        //    var myctrl = new ctrl_test();
+        //    myctrl.myctrl = content1;
+        //    content1.Content = myctrl;
+        //}
+
+        private void bt1_Click(object sender, RoutedEventArgs e)
         {
             var myctrl = new ctrl_test();
             myctrl.myctrl = content1;
