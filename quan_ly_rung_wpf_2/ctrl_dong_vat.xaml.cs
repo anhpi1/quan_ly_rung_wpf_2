@@ -1,219 +1,107 @@
-﻿using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
+﻿using quan_ly_rung_wpf_2.Controllers;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace quan_ly_rung_wpf_2
 {
-    /// <summary>
-    /// Interaction logic for ctrl_dong_vat.xaml
-    /// </summary>
     public partial class ctrl_dong_vat : UserControl
     {
+        private AnimalSpeciesController controller;
+        private bool isAdding;
+
         public ctrl_dong_vat()
         {
             InitializeComponent();
+            controller = new AnimalSpeciesController();
             LoadData();
         }
 
-        private string connectionString = "Server=localhost;Database=quan_li_rung;Uid=root;Pwd=123456;";
-        private bool isAdding;
-        internal ContentControl myctrl;
-
         private void LoadData()
         {
-
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(connectionString))
-                {
-                    conn.Open();
-                    string query = "SELECT * from animal_species ";
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-                    MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-                    DataTable dataTable = new DataTable();
-                    adapter.Fill(dataTable);
-                    dataGrid.ItemsSource = dataTable.DefaultView;
-                }
+                DataTable data = controller.LoadAllAnimalSpecies();
+                dataGrid.ItemsSource = data.DefaultView;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi tải dữ liệu: " + ex.Message);
+                MessageBox.Show(ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
-        private void ChiTiet_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is Button button && button.Tag is object data)
-            {
-                // Tìm dòng tương ứng
-                var row = dataGrid.ItemContainerGenerator.ContainerFromItem(data) as DataGridRow;
-
-                if (row != null)
-                {
-                    // Chuyển đổi trạng thái ẩn/hiện
-                    row.DetailsVisibility = row.DetailsVisibility == Visibility.Visible
-                        ? Visibility.Collapsed
-                        : Visibility.Visible;
-                }
-            }
-        }
-
-
-
-
-        // Xóa sản phẩm
-        private void Xoa_Click(object sender, RoutedEventArgs e)
-        {
-            Button button = sender as Button;
-            string id = button.Tag.ToString(); // Lấy ID của sản phẩm
-
-            // Hỏi xác nhận trước khi xóa
-            if (MessageBox.Show($"Bạn có chắc chắn muốn xóa sản phẩm ID: {id}?", "Xác nhận", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-            {
-                try
-                {
-                    using (MySqlConnection conn = new MySqlConnection(connectionString))
-                    {
-                        conn.Open();
-                        string query = "DELETE FROM animal_species WHERE id = @id";
-                        MySqlCommand cmd = new MySqlCommand(query, conn);
-                        cmd.Parameters.AddWithValue("@id", id);
-                        cmd.ExecuteNonQuery();
-                        MessageBox.Show("Xóa sản phẩm thành công!");
-
-                        // Tải lại dữ liệu sau khi xóa
-                        LoadData();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Lỗi khi xóa sản phẩm: " + ex.Message);
-                }
-            }
-        }
-
 
         private void btnAddSubmit_Click(object sender, RoutedEventArgs e)
         {
             if (isAdding)
             {
-                // Xử lý khi nhấn nút Submit
                 string name = txtName.Text;
                 string food = txtFood.Text;
                 string disease = txtDisease.Text;
                 string quantity = txtQuantity.Text;
-                string discription = txtDiscription.Text;
+                string description = txtDiscription.Text;
 
-                if (!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(food) && !string.IsNullOrWhiteSpace(disease)&& !string.IsNullOrWhiteSpace(quantity)&& !string.IsNullOrWhiteSpace(discription))
+                if (!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(food) &&
+                    !string.IsNullOrWhiteSpace(disease) && !string.IsNullOrWhiteSpace(quantity) &&
+                    !string.IsNullOrWhiteSpace(description))
                 {
                     try
                     {
-                        // Kết nối tới MySQL
-                        using (MySqlConnection connection = new MySqlConnection(connectionString))
-                        {
-                            connection.Open();
-
-                            // Câu lệnh SQL để chèn dữ liệu
-                            string sql = "INSERT INTO animal_species (name, main_food, main_disease, longevity, description) VALUES (@name, @food, @disease, @quantity, @discription)";
-                            using (MySqlCommand cmd = new MySqlCommand(sql, connection))
-                            {
-                                cmd.Parameters.AddWithValue("@name", name);
-                                cmd.Parameters.AddWithValue("@food", food);
-                                cmd.Parameters.AddWithValue("@disease", disease);
-                                cmd.Parameters.AddWithValue("@quantity", quantity);
-                                cmd.Parameters.AddWithValue("@discription", discription);
-
-                                // Thực thi câu lệnh
-                                cmd.ExecuteNonQuery();
-                            }
-                        }
-
-                        MessageBox.Show("Thêm sản phẩm thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                        // Cập nhật DataGrid (chỉ hiển thị, không ảnh hưởng dữ liệu trong database)
-                        var newItem = new
-                        {
-                            id = dataGrid.Items.Count + 1, // STT tự động tăng
-                            name,
-                            food,
-                            disease,
-                            quantity,
-                            discription,
-                            
-                        };
-                        var itemsSource = dataGrid.ItemsSource as System.Collections.IList;
-                        itemsSource?.Add(newItem);
-
-                        // Reset trạng thái và ẩn Grid nhập liệu
-                        inputGrid.Visibility = Visibility.Collapsed;
-                        btnAddSubmit.Content = "Add";
-                        isAdding = false;
-
-                        // Xóa các giá trị nhập liệu
-                        txtName.Clear();
-                        txtFood.Clear();
-                        txtQuantity.Clear();
-                        txtDiscription.Clear();
-                        txtDisease.Clear();
-
+                        controller.AddAnimalSpecies(name, food, disease, quantity, description);
+                        MessageBox.Show("Thêm thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                        LoadData();
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"Đã xảy ra lỗi: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 else
                 {
                     MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
+
+                ResetInputGrid();
             }
             else
             {
-                // Hiển thị Grid nhập liệu
                 inputGrid.Visibility = Visibility.Visible;
                 btnAddSubmit.Content = "Submit";
                 isAdding = true;
             }
-
-            LoadData();
         }
 
-        private void CloseInputGrid_Click(object sender, RoutedEventArgs e)
+        private void Xoa_Click(object sender, RoutedEventArgs e)
         {
-            // Ẩn Grid nhập thông tin
-            inputGrid.Visibility = Visibility.Collapsed;
+            Button button = sender as Button;
+            if (button != null && int.TryParse(button.Tag.ToString(), out int id))
+            {
+                if (MessageBox.Show($"Bạn có chắc chắn muốn xóa ID: {id}?", "Xác nhận", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        controller.DeleteAnimalSpecies(id);
+                        MessageBox.Show("Xóa thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                        LoadData();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
+        }
 
-            // Đặt lại trạng thái nút Add/Submit
+        private void ResetInputGrid()
+        {
+            inputGrid.Visibility = Visibility.Collapsed;
             btnAddSubmit.Content = "Add";
             isAdding = false;
 
-            // Xóa dữ liệu nhập liệu nếu có
-    
             txtName.Clear();
             txtFood.Clear();
+            txtDisease.Clear();
             txtQuantity.Clear();
             txtDiscription.Clear();
-            txtDisease.Clear();
         }
-
-        private void dataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
-        {
-            // Cập nhật Header của hàng theo chỉ số (index)
-            e.Row.Header = (e.Row.GetIndex() + 1).ToString();
-        }
-
     }
 }
